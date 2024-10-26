@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
@@ -10,7 +11,11 @@ import (
 )
 
 type HttpDecoder interface {
-	RetrieveRequestOrBody(string) ([]byte, error)
+	RetrieveRequestOrBody(*http.Response) ([]byte, error)
+}
+
+type DataFormat struct {
+	Description string `json:"descriere"`
 }
 
 // https://data.europa.eu/data/datasets/fbeab450-4092-40c7-b0ef-ce0222e6c17b?locale=en
@@ -30,6 +35,23 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println(string(dataReturned))
+
+	// print only the 'descriere' field
+	if err := PayloadExtractorOfLocations(dataReturned); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func PayloadExtractorOfLocations(dataReturned []byte) error {
+	var locations []DataFormat
+	err := json.Unmarshal(dataReturned, &locations)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, loc := range locations {
+		fmt.Println(loc.Description)
+	}
+	return nil
 }
 
 // RetrieveRequest dumps the HTTP Request
