@@ -11,6 +11,7 @@ type HttpDecoder interface {
 	RetrieveRequestOrBody(string) ([]byte, error)
 }
 
+// https://data.europa.eu/data/datasets/fbeab450-4092-40c7-b0ef-ce0222e6c17b?locale=en
 const DataLink string = "https://data.gov.ro/dataset/fbeab450-4092-40c7-b0ef-ce0222e6c17b/resource/3cd79e1f-6b75-4b6f-bf32-903e2b6fad51/download/wifi_cluj.json"
 
 func main() {
