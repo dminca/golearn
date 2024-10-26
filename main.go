@@ -22,6 +22,7 @@ func main() {
 	fmt.Println(string(data))
 }
 
+// RetrieveRequest dumps the HTTP Request
 func RetrieveRequest(link string) ([]byte, error) {
 	req, err := http.NewRequest(http.MethodGet, link, nil)
 	if err != nil {
@@ -34,6 +35,7 @@ func RetrieveRequest(link string) ([]byte, error) {
 	return reqDump, nil
 }
 
+// RetrieveBody dumps the body of an HTTP request
 func RetrieveBody() {
 	panic("not implemented")
 }
