@@ -37,12 +37,12 @@ func main() {
 	fmt.Println(string(dataReturned))
 
 	// print only the 'descriere' field
-	if err := PayloadExtractorOfLocations(dataReturned); err != nil {
+	if err := ExtractLocations(dataReturned); err != nil {
 		log.Fatal(err)
 	}
 }
 
-func PayloadExtractorOfLocations(dataReturned []byte) error {
+func ExtractLocations(dataReturned []byte) error {
 	var locations []DataFormat
 	err := json.Unmarshal(dataReturned, &locations)
 	if err != nil {
